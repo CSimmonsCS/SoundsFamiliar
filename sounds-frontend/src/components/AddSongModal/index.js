@@ -21,21 +21,21 @@ const AddSongModal = (props) => {
   const body = (
     <div className="AddSongForm">
       <form>
-        <h2>Sample Song Info</h2>
-        <div className="sample-form-text">
-          <TextField required id="sample-title" label="Sample Title" />
-          <TextField required id="sample-artist" label="Sample Artist" />
-          <TextField required id="sample-song" label="Sample Song" />
-          <TextField required id="sample-time" label="Sample Time-Stamp" />
-          <TextField required id="sample-address" label="Sample Address" />
+        <h2>Song Info</h2>
+        <div className="song-form-text">
+          <TextField required id="song-title" label="Song Title" />
+          <TextField required id="song-artist" label="Artist" />
+          <TextField required id="song" label="Song" />
+          <TextField required id="song-time" label="Song Time-Stamp" />
+          <TextField required id="song-address" label="Song Address" />
         </div>
-        <h2>Original Song Info</h2>
-        <div className="og-form-text">
-          <TextField required id="og-title" label="Original Title" />
-          <TextField required id="og-artist" label="Original Artist" />
-          <TextField required id="og-song" label="Original Song" />
-          <TextField required id="og-time" label="Original Time-Stamp" />
-          <TextField required id="og-address" label="Original Address" />
+        <h2>Sampled Song Info</h2>
+        <div className="sampled-form-text">
+          <TextField required id="sampled-title" label="Sampled Title" />
+          <TextField required id="sampled-artist" label="Sampled Artist" />
+          <TextField required id="sampled-song" label="Sampled Song" />
+          <TextField required id="sampled-time" label="Sampled Time-Stamp" />
+          <TextField required id="sampled-address" label="Sampled Address" />
         </div>
         <div className="add-song-button">
           <Button type="submit" variant="contained">Submit</Button>

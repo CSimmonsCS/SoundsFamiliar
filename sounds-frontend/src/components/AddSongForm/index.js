@@ -13,31 +13,23 @@ class AddSongForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      'sample_title':"",
-      'sample_artist':"",
-      'sample_address':"",
-      'sample_time_stamp':"",
-      'sample_views': 0,
-      'sample_likes': 0,
+      'song_title':"",
+      'song_artist':"",
+      'song_address':"",
+      'song_time_stamp':"",
+      'song_views': 0,
+      'song_likes': 0,
 
-      'og_title':"",
-      'og_artist':"",
-      'og_address':"",
-      'og_time_stamp':"",
-      'og_views':0,
-      'og_likes':0,
+      'sampled_title':"",
+      'sampled_artist':"",
+      'sampled_address':"",
+      'sampled_time_stamp':"",
+      'sampled_views':0,
+      'sampled_likes':0,
       addOpen: false,
       editOpen: false,
     }
   }
-
-  // componentDidMount() {
-  //   if(this.props.student){
-  //     const { sample_title, sample_name, sample_address, sample_time_stamp, og_title, og_name, og_address, og_time_stamp
-  //     } = this.props.student;
-  //     this.setState({ sample_title, sample_name, sample_address, sample_time_stamp, og_title, og_name, og_address, og_time_stamp });
-  //   }
-  // }
 
   handleAddOpen = () => {
     this.setState({ addOpen: true });
@@ -67,19 +59,19 @@ class AddSongForm extends React.Component {
 
   resetState = () => {
     this.setState({
-        'sample_title':"",
-        'sample_artist':"",
-        'sample_address':"",
-        'sample_time_stamp':"",
-        'sample_views': 0,
-        'sample_likes': 0,
+        'song_title':"",
+        'song_artist':"",
+        'song_address':"",
+        'song_time_stamp':"",
+        'song_views': 0,
+        'song_likes': 0,
 
-        'og_title':"",
-        'og_artist':"",
-        'og_address':"",
-        'og_time_stamp':"",
-        'og_views':0,
-        'og_likes':0,
+        'sampled_title':"",
+        'sampled_artist':"",
+        'sampled_address':"",
+        'sampled_time_stamp':"",
+        'sampled_views':0,
+        'sampled_likes':0,
       })
   }
 
@@ -100,7 +92,7 @@ class AddSongForm extends React.Component {
   };
 
   deleteSong = e => {
-    axios.delete(API_URL + this.state.sample_title).then(() => {
+    axios.delete(API_URL + this.state.song_title).then(() => {
       this.props.resetState();
       this.toggle();
     });
@@ -126,19 +118,19 @@ class AddSongForm extends React.Component {
              <div className="AddSongModal">
                <h2>Add</h2>
                <form onSubmit={this.createSong}>
-                 <h2>Sample Song Info</h2>
-                 <div className="sample-form-text">
-                   <TextField name="sample_title" value={this.defaultIfEmpty(this.state.sample_title)} onChange={this.onChange} required id="sample_title" label="Sample Title" />
-                   <TextField name="sample_artist" value={this.defaultIfEmpty(this.state.sample_artist)} onChange={this.onChange} required id="sample-artist" label="Sample Artist" />
-                   <TextField name="sample_time_stamp" value={this.defaultIfEmpty(this.state.sample_time_stamp)} onChange={this.onChange} required id="sample-time" label="Sample Time-Stamp" />
-                   <TextField name="sample_address" value={this.defaultIfEmpty(this.state.sample_address)} onChange={this.onChange} required id="sample-address" label="Sample Address" />
+                 <h2>Song Info</h2>
+                 <div className="song-form-text">
+                   <TextField name="song_title" value={this.defaultIfEmpty(this.state.song_title)} onChange={this.onChange} required id="song_title" label="Song Title" />
+                   <TextField name="song_artist" value={this.defaultIfEmpty(this.state.song_artist)} onChange={this.onChange} required id="song-artist" label="Song Artist" />
+                   <TextField name="song_time_stamp" value={this.defaultIfEmpty(this.state.song_time_stamp)} onChange={this.onChange} required id="song-time" label="Song Time-Stamp" />
+                   <TextField name="song_address" value={this.defaultIfEmpty(this.state.song_address)} onChange={this.onChange} required id="song-address" label="Song Address" />
                  </div>
-                 <h2>Original Song Info</h2>
-                 <div className="og-form-text">
-                   <TextField name="og_title" value={this.defaultIfEmpty(this.state.og_title)} onChange={this.onChange}required id="og-title" label="Original Title" />
-                   <TextField name="og_artist" value={this.defaultIfEmpty(this.state.og_artist)} onChange={this.onChange}required id="og-artist" label="Original Artist" />
-                   <TextField name="og_time_stamp" value={this.defaultIfEmpty(this.state.og_time_stamp)} onChange={this.onChange}required id="og-time" label="Original Time-Stamp" />
-                   <TextField name="og_address" value={this.defaultIfEmpty(this.state.og_address)} onChange={this.onChange}required id="og-address" label="Original Address" />
+                 <h2>Sampled Song Info</h2>
+                 <div className="sampled-form-text">
+                   <TextField name="sampled_title" value={this.defaultIfEmpty(this.state.sampled_title)} onChange={this.onChange}required id="sampled-title" label="Original Title" />
+                   <TextField name="sampled_artist" value={this.defaultIfEmpty(this.state.sampled_artist)} onChange={this.onChange}required id="sampled-artist" label="Original Artist" />
+                   <TextField name="sampled_time_stamp" value={this.defaultIfEmpty(this.state.sampled_time_stamp)} onChange={this.onChange}required id="sampled-time" label="Original Time-Stamp" />
+                   <TextField name="sampled_address" value={this.defaultIfEmpty(this.state.sampled_address)} onChange={this.onChange}required id="sampled-address" label="Original Address" />
                  </div>
                  <div className="add-song-button">
                    <Button type="submit" variant="contained">Submit</Button>
@@ -156,19 +148,19 @@ class AddSongForm extends React.Component {
               <div className="AddSongModal">
                 <h2>Edit</h2>
                 <form onSubmit={this.editSong}>
-                  <h2>Sample Song Info</h2>
-                  <div className="sample-form-text">
-                    <TextField name="sample_title" value={this.defaultIfEmpty(this.state.sample_title)} onChange={this.onChange} required id="sample_title" label="Sample Title" />
-                    <TextField name="sample_artist" value={this.defaultIfEmpty(this.state.sample_artist)} onChange={this.onChange} required id="sample-artist" label="Sample Artist" />
-                    <TextField name="sample_time_stamp" value={this.defaultIfEmpty(this.state.sample_time_stamp)} onChange={this.onChange} required id="sample-time" label="Sample Time-Stamp" />
-                    <TextField name="sample_address" value={this.defaultIfEmpty(this.state.sample_address)} onChange={this.onChange} required id="sample-address" label="Sample Address" />
+                  <h2>Sampled Song Info</h2>
+                  <div className="song-form-text">
+                    <TextField name="song_title" value={this.defaultIfEmpty(this.state.song_title)} onChange={this.onChange} required id="song_title" label="Song Title" />
+                    <TextField name="song_artist" value={this.defaultIfEmpty(this.state.song_artist)} onChange={this.onChange} required id="song-artist" label="Song Artist" />
+                    <TextField name="song_time_stamp" value={this.defaultIfEmpty(this.state.song_time_stamp)} onChange={this.onChange} required id="song-time" label="Song Time-Stamp" />
+                    <TextField name="song_address" value={this.defaultIfEmpty(this.state.song_address)} onChange={this.onChange} required id="song-address" label="Song Address" />
                   </div>
                   <h2>Original Song Info</h2>
-                  <div className="og-form-text">
-                    <TextField name="og_title" value={this.defaultIfEmpty(this.state.og_title)} onChange={this.onChange}required id="og-title" label="Original Title" />
-                    <TextField name="og_artist" value={this.defaultIfEmpty(this.state.og_artist)} onChange={this.onChange}required id="og-artist" label="Original Artist" />
-                    <TextField name="og_time_stamp" value={this.defaultIfEmpty(this.state.og_time_stamp)} onChange={this.onChange}required id="og-time" label="Original Time-Stamp" />
-                    <TextField name="og_address" value={this.defaultIfEmpty(this.state.og_address)} onChange={this.onChange}required id="og-address" label="Original Address" />
+                  <div className="sampled-form-text">
+                    <TextField name="sampled_title" value={this.defaultIfEmpty(this.state.sampled_title)} onChange={this.onChange}required id="sampled-title" label="Original Title" />
+                    <TextField name="sampled_artist" value={this.defaultIfEmpty(this.state.sampled_artist)} onChange={this.onChange}required id="sampled-artist" label="Original Artist" />
+                    <TextField name="sampled_time_stamp" value={this.defaultIfEmpty(this.state.sampled_time_stamp)} onChange={this.onChange}required id="sampled-time" label="Original Time-Stamp" />
+                    <TextField name="sampled_address" value={this.defaultIfEmpty(this.state.sampled_address)} onChange={this.onChange}required id="sampled-address" label="Original Address" />
                   </div>
                   <div className="add-song-button">
                     <Button type="submit" variant="contained">Submit</Button>

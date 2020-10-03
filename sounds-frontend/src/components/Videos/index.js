@@ -13,10 +13,10 @@ class Videos extends React.Component {
   render () {
     return (
       <div className='Videos'>
-        <div className="samples-container">
+        <div className="song-container">
           <div className="left-side">
             <div className="title-likes-container">
-              <h3>Sample</h3>
+              <h3>Song</h3>
               <div className="likes-container">
                 <div className="likes-number">
                   <a href="#">&hearts;</a> { this.props.data.sample.likes }
@@ -30,8 +30,8 @@ class Videos extends React.Component {
                 <a href="#">{ this.props.data.sample.time_stamp }</a>
               </div>
             </div>
-            <div className="sample-video">
-              <iframe title="sample" width="560" height="315"
+            <div className="song-video">
+              <iframe title="song" width="560" height="315"
                 src="https://www.youtube.com/embed/6L_k74BOLag?start=63"
                 frameBorder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -41,7 +41,7 @@ class Videos extends React.Component {
           </div>
           <div className="right-side">
             <div className="title-likes-container">
-              <h3>Original</h3>
+              <h3>Sampled</h3>
               <div className="likes-container">
                 <div className="likes-number">
                   <a href="#">&hearts;</a> { this.props.data.original.likes }
@@ -55,8 +55,8 @@ class Videos extends React.Component {
                 <a href="#">{ this.props.data.original.time_stamp }</a>
               </div>
             </div>
-            <div className="original-video">
-              <iframe title='original'width="560" height="315"
+            <div className="sampled-video">
+              <iframe title='sampled'width="560" height="315"
                       src="https://www.youtube.com/embed/qhrPmQTyIvM?start=202"
                       frameBorder="0"
                       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

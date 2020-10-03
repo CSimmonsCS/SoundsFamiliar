@@ -213,7 +213,7 @@ nav::before{
   margin: 20px 0 0 0;
 }
 
-.sample-form-text, .og-form-text{
+.song-form-text, .sampled-form-text{
   display: flex;
   justify-content:space-between;
 
@@ -228,7 +228,7 @@ nav::before{
 
 /* sample videos */
 
-.samples-container{
+.song-container{
   display: flex;
   margin: 0 50px;
   justify-content: space-between;
@@ -299,7 +299,7 @@ nav::before{
   /* margin: 20px; */
 }
 
-.original-video, .sample-video{
+.sampled-video, .song-video{
   display: flex;
 }
 
