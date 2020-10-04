@@ -14,11 +14,12 @@ class AddSongHome extends React.Component{
   };
 
   componentDidMount(){
-    this.resetState();
+    this.getSongs();
   }
 
   getSongs = () => {
     axios.get(API_URL).then(res => this.setState({ songs: res.data }));
+    console.log(this.state.songs);
   };
 
   resetState = () => {
@@ -28,8 +29,10 @@ class AddSongHome extends React.Component{
   render(){
 
     return(
-      <div>{this.state.songs}
-        <AddSongForm />
+      <div>
+        <button type="button" onClick={this.getSongs}>
+          reset state
+        </button>
       </div>
     );
   }

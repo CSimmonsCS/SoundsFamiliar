@@ -28,7 +28,13 @@ class AddSongForm extends React.Component {
       'sampled_likes':0,
       addOpen: false,
       editOpen: false,
+      songs:[],
     }
+  }
+
+  componentDidMount(){
+    axios.get(API_URL)
+      .then(res => this.setState({ songs: res.data }))
   }
 
   handleAddOpen = () => {
@@ -85,7 +91,16 @@ class AddSongForm extends React.Component {
 
   editSong = e => {
     e.preventDefault();
-    axios.put(API_URL + 1, this.state).then(() => {
+    // axios.get(API_URL)
+    //   .then(res => this.setState({ songs: res.data }))
+    //   .then(setTimeout(1000));
+
+    // console.log(this.state.songs.indexOf("Test"));
+    var test = this.state.songs.map(e => e.song_title).indexOf(this.state.song_title);
+    console.log(this.state.songs[test].id);
+    console.log(this.state.songs[test].song_title);
+    console.log(this.state.songs[test].song_artist);
+    axios.put(API_URL + this.state.songs[test].id, this.state).then(() => {
       console.log('Song has been edited');
       this.resetState();
     })
