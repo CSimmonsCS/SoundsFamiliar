@@ -10,24 +10,12 @@ import Footer from './components/Footer';
 import AddSongModal from './components/AddSongModal';
 import AddSongHome from './components/AddSongHome';
 
-import { API_URL } from "../constants";
-
 function App() {
-  var data = {
-              sample:{title:'No Guidance',
-                      likes:'11',
-                      artist:'Chris Brown',
-                      time_stamp:'1:03',},
-              original:{title:'Before I Die',
-                        likes:'6',
-                        artist:'Che Ecru',
-                        time_stamp:'3:22',},
-            };
   return (
     <div className="App">
       <Header/>
       <Description/>
-      <Videos data={data}/>
+      <Videos/>
       <Comments/>
       <Footer />
     </div>

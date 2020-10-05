@@ -35,7 +35,7 @@ class AddSongForm extends React.Component {
 
   componentDidMount(){
     axios.get(API_URL)
-      .then(res => this.setState({ songs: res.data }))
+      .then(res => this.setState({ songs: res.data }));
   }
 
   handleAddOpen = () => {
@@ -101,15 +101,12 @@ class AddSongForm extends React.Component {
 
   editSong = e => {
     e.preventDefault();
-    // axios.get(API_URL)
-    //   .then(res => this.setState({ songs: res.data }))
-    //   .then(setTimeout(1000));
 
     // console.log(this.state.songs.indexOf("Test"));
     var songToBeEdited = this.state.songs.map(e => e.song_title).indexOf(this.state.song_title);
-    console.log(this.state.songs[songToBeEdited].id);
-    console.log(this.state.songs[songToBeEdited].song_title);
-    console.log(this.state.songs[songToBeEdited].song_artist);
+    // console.log(this.state.songs[songToBeEdited].id);
+    // console.log(this.state.songs[songToBeEdited].song_title);
+    // console.log(this.state.songs[songToBeEdited].song_artist);
     console.log(this.state.song_title + ' has been edited');
     axios.put(API_URL + this.state.songs[songToBeEdited].id, this.state).then(() => {
       this.resetState();
