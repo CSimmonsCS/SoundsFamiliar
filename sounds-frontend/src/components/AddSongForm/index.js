@@ -28,6 +28,7 @@ class AddSongForm extends React.Component {
       'sampled_likes':0,
       addOpen: false,
       editOpen: false,
+      deleteOpen: false,
       songs:[],
     }
   }
@@ -52,6 +53,15 @@ class AddSongForm extends React.Component {
 
   handleEditClose = () => {
     this.setState({ editOpen: false });
+    this.resetState();
+  };
+
+  handleDeleteOpen = () => {
+    this.setState({ deleteOpen: true });
+  };
+
+  handleDeleteClose = () => {
+    this.setState({ deleteOpen: false });
     this.resetState();
   };
 
@@ -83,8 +93,8 @@ class AddSongForm extends React.Component {
 
   createSong = e => {
     e.preventDefault();
+    console.log(this.state.song_title + ' has been added');
     axios.post(API_URL, this.state).then(() => {
-      console.log('Song has been added');
       this.resetState();
     })
   };
@@ -96,20 +106,22 @@ class AddSongForm extends React.Component {
     //   .then(setTimeout(1000));
 
     // console.log(this.state.songs.indexOf("Test"));
-    var test = this.state.songs.map(e => e.song_title).indexOf(this.state.song_title);
-    console.log(this.state.songs[test].id);
-    console.log(this.state.songs[test].song_title);
-    console.log(this.state.songs[test].song_artist);
-    axios.put(API_URL + this.state.songs[test].id, this.state).then(() => {
-      console.log('Song has been edited');
+    var songToBeEdited = this.state.songs.map(e => e.song_title).indexOf(this.state.song_title);
+    console.log(this.state.songs[songToBeEdited].id);
+    console.log(this.state.songs[songToBeEdited].song_title);
+    console.log(this.state.songs[songToBeEdited].song_artist);
+    console.log(this.state.song_title + ' has been edited');
+    axios.put(API_URL + this.state.songs[songToBeEdited].id, this.state).then(() => {
       this.resetState();
     })
   };
 
   deleteSong = e => {
-    axios.delete(API_URL + this.state.song_title).then(() => {
-      this.props.resetState();
-      this.toggle();
+
+    var songToBeDeleted = this.state.songs.map(e => e.song_title).indexOf(this.state.song_title);
+    console.log( this.state.song_title + ' has been deleted');
+    axios.delete(API_URL + this.state.songs[songToBeDeleted].id).then(() => {
+      this.resetState();
     });
   };
 
@@ -122,6 +134,9 @@ class AddSongForm extends React.Component {
           </button>
           <button type="button" onClick={this.handleEditOpen}>
             Edit Song
+          </button>
+          <button type="button" onClick={this.handleDeleteOpen}>
+            Delete Song
           </button>
 
           <Modal
@@ -163,14 +178,14 @@ class AddSongForm extends React.Component {
               <div className="AddSongModal">
                 <h2>Edit</h2>
                 <form onSubmit={this.editSong}>
-                  <h2>Sampled Song Info</h2>
+                  <h2>Song Info</h2>
                   <div className="song-form-text">
                     <TextField name="song_title" value={this.defaultIfEmpty(this.state.song_title)} onChange={this.onChange} required id="song_title" label="Song Title" />
                     <TextField name="song_artist" value={this.defaultIfEmpty(this.state.song_artist)} onChange={this.onChange} required id="song-artist" label="Song Artist" />
                     <TextField name="song_time_stamp" value={this.defaultIfEmpty(this.state.song_time_stamp)} onChange={this.onChange} required id="song-time" label="Song Time-Stamp" />
                     <TextField name="song_address" value={this.defaultIfEmpty(this.state.song_address)} onChange={this.onChange} required id="song-address" label="Song Address" />
                   </div>
-                  <h2>Original Song Info</h2>
+                  <h2>Sampled Song Info</h2>
                   <div className="sampled-form-text">
                     <TextField name="sampled_title" value={this.defaultIfEmpty(this.state.sampled_title)} onChange={this.onChange}required id="sampled-title" label="Original Title" />
                     <TextField name="sampled_artist" value={this.defaultIfEmpty(this.state.sampled_artist)} onChange={this.onChange}required id="sampled-artist" label="Original Artist" />
@@ -184,6 +199,25 @@ class AddSongForm extends React.Component {
               </div>
             </Modal>
 
+            <Modal
+               open={this.state.deleteOpen}
+               onClose={this.handleDeleteClose}
+               aria-labelledby="simple-modal-title"
+               aria-describedby="simple-modal-description"
+             >
+               <div className="AddSongModal">
+                 <h2>Delete</h2>
+                 <form onSubmit={this.deleteSong}>
+                   <h2>Song Info</h2>
+                   <div className="song-form-text">
+                     <TextField name="song_title" value={this.defaultIfEmpty(this.state.song_title)} onChange={this.onChange} required id="song_title" label="Song Title" />
+                   </div>
+                   <div className="add-song-button">
+                     <Button type="submit" variant="contained">Submit</Button>
+                   </div>
+                 </form>
+               </div>
+             </Modal>
       </div>
     );
   }

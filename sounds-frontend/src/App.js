@@ -10,6 +10,8 @@ import Footer from './components/Footer';
 import AddSongModal from './components/AddSongModal';
 import AddSongHome from './components/AddSongHome';
 
+import { API_URL } from "../constants";
+
 function App() {
   var data = {
               sample:{title:'No Guidance',
