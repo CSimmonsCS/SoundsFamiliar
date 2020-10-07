@@ -344,6 +344,15 @@ iframe{
   margin: auto;
 }
 
+.song-video > div, .sampled-video > div {
+  width: 100%;
+}
+
+.youtube-iframe{
+  margin: auto;
+  width: 100%;
+}
+
 .under-video{
   display: flex;
   margin: 20px 0;

@@ -16,7 +16,7 @@ const Buttons = (props) => {
             <button type="button" name="comment" onClick={() => {props.handleCommentToggle()}}>COMMENT</button>
           </div>
           <div className="next-button">
-            <button type="button" name="next">NEXT</button>
+            <button onClick={() => window.location.reload(false)} type="button" name="next">NEXT</button>
           </div>
         </div>
       </div>

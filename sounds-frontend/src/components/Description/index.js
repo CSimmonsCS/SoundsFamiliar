@@ -12,7 +12,7 @@ class Description extends React.Component {
             <h1>Discover Music through Samples, Cover Songs and Remixes</h1>
             <p>
               Dig deeper into music by discovering direct connections among over 702,000 songs and 229,000 artists, from Hip-Hop, Rap and R&B via Electronic / Dance through to Rock, Pop, Soul, Funk, Reggae, Jazz, Classical and beyond.
-              WhoSampled's content is built by a community of over 24,000 contributors. Make contributions to earn Cred  - our very own points system. Join us now to add more knowledge and share it with the world!
+              SoundsFamiliar's content is built by a community of over 24,000 contributors. Make contributions to earn Cred  - our very own points system. Join us now to add more knowledge and share it with the world!
             </p>
             <AddSongForm />
           </div>
