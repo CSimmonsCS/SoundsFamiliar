@@ -14,6 +14,8 @@ class Videos extends React.Component {
       songs: [],
       randomNum: 0,
       randomSong: {},
+      song_opts: {},
+      sampled_opts: {},
     };
   }
 
@@ -21,14 +23,17 @@ class Videos extends React.Component {
     //HTTP get all the songs,
     //concatenates songs to state.songs,
     //gets random number based on songs array length,
-    //sets state.randomSong to state.songs[randomNum]
+    //sets state.randomSong to state.songs[randomNum],
+    //initializes the start times for the YouTube iFrame API
     axios.get(API_URL)
       // .then(res => this.setState({ songs: res.data }, () => console.log(this.state.songs)));
       .then(
         res => this.setState({ songs: this.state.songs.concat(res.data) },
           () => this.setState({randomNum: Math.floor(Math.random() * this.state.songs.length)},
-            () => this.setState({randomSong: this.state.songs[this.state.randomNum]}, () => console.log(this.state.randomSong))
-              )));
+            () => this.setState({randomSong: this.state.songs[this.state.randomNum]},
+              () => this.setOptsStarts())
+                // () => console.log(this.state.randomSong))
+                )));
 
       // .then(res => console.log(res.data));
   }
@@ -55,8 +60,38 @@ class Videos extends React.Component {
     });
   }
 
+  timeStampToSeconds = (time) => {
+    //splits time stamp by ':', multiplies minutes (temp[0]) by 60 and adds seconds (temp[1])
+    var temp = time.split(':');
+    var seconds = (parseInt(temp[0]) * 60) + parseInt(temp[1]);
+    return seconds;
+  }
+
+  setOptsStarts = () => {
+    //holds both Opt start functions for the YouTube iFrame API
+    this.setSongOptsStart();
+    this.setSampledOptsStart();
+  }
+
+  setSongOptsStart = () => {
+    var songOpts = {width: '560', height: '315', playerVars: {start:0}};
+    // var song_time_stamp = this.state.randomSong.song_time_stamp;
+    songOpts.playerVars.start = this.timeStampToSeconds(this.state.randomSong.song_time_stamp);
+    // console.log(songOpts);
+    this.setState({song_opts: songOpts});
+  }
+
+  setSampledOptsStart = () => {
+    var sampledOpts = {width: '560', height: '315', playerVars: {start:0}};
+    // var song_time_stamp = this.state.randomSong.song_time_stamp;
+    sampledOpts.playerVars.start = this.timeStampToSeconds(this.state.randomSong.sampled_time_stamp);
+    // console.log(sampledOpts);
+    this.setState({sampled_opts: sampledOpts});
+  }
+
   goToTimeStamp = () =>{
-    console.log(this.state.randomSong.song_title);
+    // console.log(this.timeStampToSeconds(this.state.randomSong.sampled_time_stamp));
+    this.setSongOptsStart();
   };
 
   render () {
@@ -76,11 +111,11 @@ class Videos extends React.Component {
             <h4>{ this.state.randomSong.song_artist }</h4>
             <div className="time-stamp-container">
               <div className="time-stamp">
-                <a onClick={this.goToTimeStamp()} href="#">{ this.state.randomSong.song_time_stamp }</a>
+                <a onClick={() => this.goToTimeStamp()} href="#">{ this.state.randomSong.song_time_stamp }</a>
               </div>
             </div>
             <div className="song-video">
-              <YouTube className="youtube-iframe" videoId={this.state.randomSong.song_videoId} opts={{width: '560', height: '315'}} />
+              <YouTube className="youtube-iframe" videoId={this.state.randomSong.song_videoId} opts={this.state.song_opts} />
             </div>
           </div>
           <div className="right-side">
@@ -100,7 +135,7 @@ class Videos extends React.Component {
               </div>
             </div>
             <div className="sampled-video">
-              <YouTube className="youtube-iframe" videoId={this.state.randomSong.sampled_videoId} opts={{width: '560', height: '315'}} />
+              <YouTube className="youtube-iframe" videoId={this.state.randomSong.sampled_videoId} opts={this.state.sampled_opts} />
 
             </div>
 

@@ -4,14 +4,14 @@ from django.db import models
 class Song(models.Model):
     song_title = models.CharField(max_length=100)
     song_artist = models.CharField(max_length=100, default='')
-    song_address = models.CharField(max_length=100)
+    song_videoId = models.CharField(max_length=100)
     song_time_stamp = models.CharField(max_length=10)#might have to change model field
     song_views = models.IntegerField(default=0)
     song_likes = models.IntegerField(default=0)
 
     sampled_title = models.CharField(max_length=100)
     sampled_artist = models.CharField(max_length=100, default='')
-    sampled_address = models.CharField(max_length=100)
+    sampled_videoId = models.CharField(max_length=100)
     sampled_time_stamp = models.CharField(max_length=10)#might have to change model field
     sampled_views = models.IntegerField(default=0)
     sampled_likes = models.IntegerField(default=0)
