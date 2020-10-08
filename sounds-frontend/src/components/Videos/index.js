@@ -16,6 +16,8 @@ class Videos extends React.Component {
       randomSong: {},
       song_opts: {},
       sampled_opts: {},
+      songPlayer: null,
+      sampledPlayer: null,
     };
   }
 
@@ -89,10 +91,29 @@ class Videos extends React.Component {
     this.setState({sampled_opts: sampledOpts});
   }
 
-  goToTimeStamp = () =>{
+  goToSongTimeStamp = (e) =>{
+    e.preventDefault();
     // console.log(this.timeStampToSeconds(this.state.randomSong.sampled_time_stamp));
-    this.setSongOptsStart();
+    this.state.songPlayer.playVideo();
   };
+
+  goToSampledTimeStamp = (e) =>{
+    e.preventDefault();
+    // console.log(this.timeStampToSeconds(this.state.randomSong.sampled_time_stamp));
+    this.state.sampledPlayer.playVideo();
+  };
+
+  songOnReady = (event) => {
+    this.setState({songPlayer: event.target});
+  }
+
+  sampledOnReady = (event) => {
+    this.setState({sampledPlayer: event.target});
+  }
+
+  preventDefault = (e) => {
+    e.target.preventDefault();
+  }
 
   render () {
     return (
@@ -111,11 +132,11 @@ class Videos extends React.Component {
             <h4>{ this.state.randomSong.song_artist }</h4>
             <div className="time-stamp-container">
               <div className="time-stamp">
-                <a onClick={() => this.goToTimeStamp()} href="#">{ this.state.randomSong.song_time_stamp }</a>
+                <a onClick={this.goToSongTimeStamp} href="#">{ this.state.randomSong.song_time_stamp }</a>
               </div>
             </div>
             <div className="song-video">
-              <YouTube className="youtube-iframe" videoId={this.state.randomSong.song_videoId} opts={this.state.song_opts} />
+              <YouTube className="youtube-iframe" videoId={this.state.randomSong.song_videoId} opts={this.state.song_opts} onReady={this.songOnReady} />
             </div>
           </div>
           <div className="right-side">
@@ -131,11 +152,11 @@ class Videos extends React.Component {
             <h4>{ this.state.randomSong.sampled_artist }</h4>
             <div className="time-stamp-container">
               <div className="time-stamp">
-                <a href="#">{ this.state.randomSong.sampled_time_stamp }</a>
+                <a onClick={this.goToSampledTimeStamp} href="#">{ this.state.randomSong.sampled_time_stamp }</a>
               </div>
             </div>
             <div className="sampled-video">
-              <YouTube className="youtube-iframe" videoId={this.state.randomSong.sampled_videoId} opts={this.state.sampled_opts} />
+              <YouTube className="youtube-iframe" videoId={this.state.randomSong.sampled_videoId} opts={this.state.sampled_opts} onReady={this.sampledOnReady}/>
 
             </div>
 
