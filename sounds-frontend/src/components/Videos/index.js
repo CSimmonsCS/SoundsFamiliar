@@ -40,7 +40,8 @@ class Videos extends React.Component {
       // .then(res => console.log(res.data));
   }
 
-  handleLikeClickSong = () => {
+  handleLikeClickSong = (e) => {
+    e.preventDefault()
     //sets temp obj to randomSong, changes song_likes variable then setState for randomSong to tempSong obj
     var tempSong = this.state.randomSong;
     tempSong.song_likes += 1;
@@ -51,7 +52,8 @@ class Videos extends React.Component {
     });
   }
 
-  handleLikeClickSampled = () => {
+  handleLikeClickSampled = (e) => {
+    e.preventDefault();
     //sets temp obj to randomSong, changes sampled_likes variable then setState for randomSong to tempSong obj
     var tempSong = this.state.randomSong;
     tempSong.sampled_likes += 1;
@@ -126,7 +128,7 @@ class Videos extends React.Component {
               <h3>Song</h3>
               <div className="likes-container">
                 <div className="likes-number">
-                  <a onClick={() => this.handleLikeClickSong()} href="#">&hearts;</a> { this.state.randomSong.song_likes }
+                  <a onClick={this.handleLikeClickSong} href="#">&hearts;</a> { this.state.randomSong.song_likes }
                 </div>
               </div>
             </div>
@@ -146,7 +148,7 @@ class Videos extends React.Component {
               <h3>Sampled</h3>
               <div className="likes-container">
                 <div className="likes-number">
-                  <a onClick={() => this.handleLikeClickSampled()} href="#">&hearts;</a> { this.state.randomSong.sampled_likes }
+                  <a onClick={this.handleLikeClickSampled} href="#">&hearts;</a> { this.state.randomSong.sampled_likes }
                 </div>
               </div>
             </div>
