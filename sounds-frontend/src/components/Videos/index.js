@@ -94,13 +94,15 @@ class Videos extends React.Component {
   goToSongTimeStamp = (e) =>{
     e.preventDefault();
     // console.log(this.timeStampToSeconds(this.state.randomSong.sampled_time_stamp));
-    this.state.songPlayer.playVideo();
+    // this.state.songPlayer.playVideo();
+    this.state.songPlayer.seekTo(this.timeStampToSeconds(this.state.randomSong.song_time_stamp));
   };
 
   goToSampledTimeStamp = (e) =>{
     e.preventDefault();
     // console.log(this.timeStampToSeconds(this.state.randomSong.sampled_time_stamp));
-    this.state.sampledPlayer.playVideo();
+    // this.state.sampledPlayer.playVideo();
+    this.state.sampledPlayer.seekTo(this.timeStampToSeconds(this.state.randomSong.sampled_time_stamp));
   };
 
   songOnReady = (event) => {
