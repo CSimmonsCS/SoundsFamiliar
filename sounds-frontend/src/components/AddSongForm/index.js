@@ -126,15 +126,23 @@ class AddSongForm extends React.Component {
 
     return (
       <div className="AddSongForm">
-          <button type="button" onClick={this.handleAddOpen}>
-            Add Song
-          </button>
-          <button type="button" onClick={this.handleEditOpen}>
-            Edit Song
-          </button>
-          <button type="button" onClick={this.handleDeleteOpen}>
-            Delete Song
-          </button>
+        <div className="buttons">
+          <div className="next-button">
+            <button type="button" onClick={this.handleAddOpen}>
+              Add Song
+            </button>
+          </div>
+          <div className="comment-button">
+            <button type="button" onClick={this.handleEditOpen}>
+              Edit Song
+            </button>
+          </div>
+          <div className="next-button">
+            <button type="button" onClick={this.handleDeleteOpen}>
+              Delete Song
+            </button>
+          </div>
+        </div>
 
           <Modal
              open={this.state.addOpen}
