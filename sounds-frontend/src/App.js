@@ -7,16 +7,26 @@ import Videos from './components/Videos';
 import Buttons from './components/Buttons';
 import Comments from './components/Comments';
 import Footer from './components/Footer';
-import AddSongModal from './components/AddSongModal';
-import AddSongHome from './components/AddSongHome';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <Header/>
-      <Description/>
-      <Videos/>
-      <Comments/>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <Description/>
+            <Videos/>
+            <Comments/>
+          </Route>
+        </Switch>
+      </Router>
       <Footer />
     </div>
   );
