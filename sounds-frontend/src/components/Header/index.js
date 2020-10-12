@@ -12,10 +12,9 @@ class Header extends React.Component {
     return (
       <div className='Header'>
         <header>
-          <Router>
             <nav>
               <div className="logo">
-                <Link to="/home">SoundsFamiliar?</Link>
+                <Link to="/">SoundsFamiliar?</Link>
               </div>
               <ul>
                 <li><Link to="/all">All Songs</Link></li>
@@ -24,7 +23,6 @@ class Header extends React.Component {
                 <li><Link to="/search">Search</Link></li>
               </ul>
             </nav>
-          </Router>
         </header>
       </div>
     );

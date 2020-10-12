@@ -7,6 +7,9 @@ import Videos from './components/Videos';
 import Buttons from './components/Buttons';
 import Comments from './components/Comments';
 import Footer from './components/Footer';
+import AllSongs from './components/AllSongs';
+
+import {withRouter} from 'react-router';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,19 +20,24 @@ import {
 function App() {
   return (
     <div className="App">
-      <Header/>
       <Router>
+        <Header/>
         <Switch>
-          <Route path="/">
-            <Description/>
-            <Videos/>
-            <Comments/>
-          </Route>
+          <Route exact path="/" component={withRouter(Home)} />
+          <Route path="/all" component={withRouter(AllSongs)} />
         </Switch>
       </Router>
       <Footer />
     </div>
   );
 }
+
+const Home = () => (
+  <div>
+    <Description/>
+    <Videos/>
+    <Comments/>
+  </div>
+);
 
 export default App;

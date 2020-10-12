@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AddSongModal from '../AddSongModal';
 import AddSongForm from '../AddSongForm';
 
 class Description extends React.Component {
