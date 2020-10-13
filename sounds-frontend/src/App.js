@@ -8,6 +8,7 @@ import Buttons from './components/Buttons';
 import Comments from './components/Comments';
 import Footer from './components/Footer';
 import AllSongs from './components/AllSongs';
+import Search from './components/Search'
 
 import {withRouter} from 'react-router';
 import {
@@ -25,6 +26,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={withRouter(Home)} />
           <Route path="/all" component={withRouter(AllSongs)} />
+          <Route path="/search" component={withRouter(Search)} />
         </Switch>
       </Router>
       <Footer />

@@ -22,7 +22,7 @@ const Buttons = (props) => {
           <button type="button" name="comment" onClick={() => {props.handleCommentToggle()}}>COMMENT</button>
         </div>
         <div className="next-button">
-          <button onClick={refresh} type="button" name="next">NEXT</button>
+          <button onClick={refresh} type="button" name="next">RANDOM</button>
         </div>
       </div>
     </div>
