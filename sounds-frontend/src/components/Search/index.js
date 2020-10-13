@@ -10,7 +10,7 @@ import { API_URL } from "../constants";
 
 import YouTube from "react-youtube";
 
-class Videos extends React.Component {
+class Search extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -163,14 +163,18 @@ class Videos extends React.Component {
   render () {
     return (
       <div className='Search'>
-        <div className="SearchBar">
-          <form onSubmit={this.onSearch}>
-            <TextField name="searchTitle" value={this.defaultIfEmpty(this.state.searchTitle)} onChange={this.onChange} id="search_title" label="Search Title"/>
-            <TextField name="searchArtist" value={this.defaultIfEmpty(this.state.searchArtist)} onChange={this.onChange} id="search_title" label="Search Artist"/>
-            <div className="add-song-button">
-              <Button type="submit" variant="contained">Submit</Button>
-            </div>
-          </form>
+        <div className="search-container">
+          <div className="SearchBar">
+            <form onSubmit={this.onSearch}>
+              <div className="search-inputs">
+                <TextField name="searchTitle" value={this.defaultIfEmpty(this.state.searchTitle)} onChange={this.onChange} id="search_title" label="Search Title"/>
+                <TextField name="searchArtist" value={this.defaultIfEmpty(this.state.searchArtist)} onChange={this.onChange} id="search_title" label="Search Artist"/>
+              </div>
+              <div className="add-song-button">
+                <Button type="submit" variant="contained">Submit</Button>
+              </div>
+            </form>
+          </div>
         </div>
 
 
@@ -223,4 +227,4 @@ class Videos extends React.Component {
   }
 }
 
-export default Videos;
+export default Search;
