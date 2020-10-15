@@ -167,8 +167,8 @@ class Search extends React.Component {
           <div className="SearchBar">
             <form onSubmit={this.onSearch}>
               <div className="search-inputs">
-                <TextField name="searchTitle" value={this.defaultIfEmpty(this.state.searchTitle)} onChange={this.onChange} id="search_title" label="Search Title"/>
-                <TextField name="searchArtist" value={this.defaultIfEmpty(this.state.searchArtist)} onChange={this.onChange} id="search_title" label="Search Artist"/>
+                <TextField required name="searchTitle" value={this.defaultIfEmpty(this.state.searchTitle)} onChange={this.onChange} id="search_title" label="Search Title"/>
+                <TextField required name="searchArtist" value={this.defaultIfEmpty(this.state.searchArtist)} onChange={this.onChange} id="search_title" label="Search Artist"/>
               </div>
               <div className="add-song-button">
                 <Button type="submit" variant="contained">Submit</Button>
