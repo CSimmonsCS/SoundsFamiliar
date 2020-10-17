@@ -114,7 +114,7 @@ class AddSongForm extends React.Component {
   };
 
   deleteSong = e => {
-
+    e.preventDefault();
     var songToBeDeleted = this.state.songs.map(e => e.song_title).indexOf(this.state.song_title);
     console.log( this.state.song_title + ' has been deleted');
     axios.delete(API_URL + this.state.songs[songToBeDeleted].id).then(() => {
