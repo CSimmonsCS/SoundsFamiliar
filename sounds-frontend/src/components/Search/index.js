@@ -134,26 +134,41 @@ class Search extends React.Component {
 
   onSearch = e => {
     e.preventDefault();
-    var songToBeSearched;
-    var artistToBeSearched;
-    if(this.state.songs.map(e => e.song_title).indexOf(this.state.searchTitle) > -1){
-      songToBeSearched = this.state.songs.map(e => e.song_title).indexOf(this.state.searchTitle);
-    }
-    if(this.state.songs.map(e => e.song_artist).indexOf(this.state.searchArtist) > -1){
-      artistToBeSearched = this.state.songs.map(e => e.song_artist).indexOf(this.state.searchArtist);
-    }
-    if(songToBeSearched > -1 && artistToBeSearched >-1){
-      // console.log(songToBeSearched);
-      // console.log(artistToBeSearched);
-      if (songToBeSearched === artistToBeSearched){
-        // console.log(this.state.songs[songToBeSearched].id);
-        this.setState({searchSong: this.state.songs[songToBeSearched]}, () => this.setOptsStarts());
-      } else{
-        console.log('No Results');
-      }
-    } else{
+    //filters songs by artist
+    var filteredSongByArtist = this.state.songs.filter((artist) => {
+      return artist.song_artist === this.state.searchArtist;
+    });
+    // console.log(filteredSongByArtist);
+    //then we go through filtered array to check for song, gets song object
+    var searchSongIndex = filteredSongByArtist.map(e=>e.song_title).indexOf(this.state.searchTitle);
+    // console.log(searchSongIndex);
+    if(searchSongIndex === -1){
       console.log('No Results');
+    } else{
+      this.setState({searchSong: filteredSongByArtist[searchSongIndex]});
     }
+
+
+    // var songToBeSearched;
+    // var artistToBeSearched;
+    // if(this.state.songs.map(e => e.song_title).indexOf(this.state.searchTitle) > -1){
+    //   songToBeSearched = this.state.songs.map(e => e.song_title).indexOf(this.state.searchTitle);
+    // }
+    // if(this.state.songs.map(e => e.song_artist).indexOf(this.state.searchArtist) > -1){
+    //   artistToBeSearched = this.state.songs.map(e => e.song_artist).indexOf(this.state.searchArtist);
+    // }
+    // if(songToBeSearched > -1 && artistToBeSearched >-1){
+    //   // console.log(songToBeSearched);
+    //   // console.log(artistToBeSearched);
+    //   if (songToBeSearched === artistToBeSearched){
+    //     // console.log(this.state.songs[songToBeSearched].id);
+    //     this.setState({searchSong: this.state.songs[songToBeSearched]}, () => this.setOptsStarts());
+    //   } else{
+    //     console.log('No Results');
+    //   }
+    // } else{
+    //   console.log('No Results');
+    // }
 
     // axios.get(API_URL, this.state).then(() => {
     //   this.resetState();
