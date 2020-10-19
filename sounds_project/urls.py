@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from sounds_backend import views
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^api/songs/$', views.songs_list),
     re_path(r'^api/songs/([0-9]*)$', views.songs_detail),
     # re_path(r'^api/songs/.*$', views.songs_detail),
-
+    path('users/', include('sounds_backend.urls')),
 ]
