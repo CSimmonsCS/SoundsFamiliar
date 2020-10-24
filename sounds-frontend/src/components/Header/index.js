@@ -12,12 +12,11 @@ class Header extends React.Component {
     super(props);
     this.state = {
       username: "",
-      logged_in: localStorage.getItem('token') ? true : false,
     };
   }
 
   componentDidMount() {
-    if (this.state.logged_in) {
+    if (this.props.logged_in) {
       fetch('http://localhost:8000/core/current_user/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
@@ -29,11 +28,6 @@ class Header extends React.Component {
         });
     }
   }
-
-  handle_logout = () => {
-    localStorage.removeItem('token');
-    this.setState({ logged_in: false, username: '' });
-  };
 
   render () {
 
@@ -48,12 +42,12 @@ class Header extends React.Component {
                 <li><Link to="/all">All Songs</Link></li>
                 <li><Link to="/search">Search</Link></li>
 
-                {this.state.logged_in  ?
-                  <li><Link to="" onClick={this.handle_logout}>{this.state.username} Log Out</Link></li>
+                {this.props.logged_in  ?
+                  <li><Link to="" onClick={this.props.handle_logout}>{this.state.username} Log Out</Link></li>
                   :
                   <li><Link to="/signin">Sign In</Link></li>
                 }
-                {this.state.logged_in  ?
+                {this.props.logged_in  ?
                   ""
                   :
                   <li><Link to="/signup">Sign Up</Link></li>

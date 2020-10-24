@@ -28,16 +28,82 @@ class App extends React.Component{
     }
   }
 
+  componentDidMount() {
+    if (this.state.logged_in) {
+      fetch('http://localhost:8000/core/current_user/', {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem('token')}`
+        }
+      })
+        .then(res => res.json())
+        .then(json => {
+          this.setState({ username: json.username });
+        });
+    }
+  }
+
+  handle_signup = (e) => {
+    e.preventDefault();
+    // axios.post('http://localhost:8000/core/users/', this.state, {
+    fetch('http://localhost:8000/core/users/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    })
+      .then(res => res.json())
+      .then(json => {
+        localStorage.setItem('token', json.token);
+        this.setState({
+          logged_in: true,
+          // displayed_form: '',
+          username: json.username
+        });
+        console.log(this.state.logged_in);
+      });
+  };
+
+  handle_login = (e, data) => {
+    e.preventDefault();
+    fetch('http://localhost:8000/token-auth/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(json => {
+        localStorage.setItem('token', json.token);
+        this.setState({
+          logged_in: true,
+          displayed_form: '',
+          username: json.user.username
+        });
+      });
+  };
+
+  handle_logout = () => {
+    localStorage.removeItem('token');
+    this.setState({ logged_in: false, username: '' });
+  };
+
   render(){
     return (
       <div className="App">
         <Router>
-          <Header/>
+          <Header logged_in={this.state.logged_in} handle_logout={this.handle_logout}/>
           <Switch>
             <Route exact path="/" component={withRouter(Home)} />
             <Route path="/all" component={withRouter(AllSongs)} />
             <Route path="/search" component={withRouter(Search)} />
-            <Route path="/signin" component={withRouter(SignIn)} />
+            <Route
+              path="/signin"
+              render={(props) =>
+                (<SignIn {...props} logged_in={this.logged_in} handle_login={this.handle_login}/>
+              )}
+            />
             <Route path="/signup" component={withRouter(SignUp)} />
           </Switch>
         </Router>

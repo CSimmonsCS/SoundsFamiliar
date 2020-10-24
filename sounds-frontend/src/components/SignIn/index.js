@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from "axios";
+import {withRouter} from 'react-router';
 
 import { USER_URL } from "../constants";
 
@@ -13,22 +14,7 @@ class SignIn extends React.Component {
     this.state = {
       username: "",
       password: "",
-      logged_in: localStorage.getItem('token') ? true : false,
     };
-  }
-
-  componentDidMount() {
-    if (this.state.logged_in) {
-      fetch('http://localhost:8000/core/current_user/', {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({ username: json.username });
-        });
-    }
   }
 
   onChange = e => {
@@ -39,31 +25,31 @@ class SignIn extends React.Component {
     return value === "" ? "" : value;
   };
 
-  handle_login = (e) => {
-    e.preventDefault();
-    fetch('http://localhost:8000/token-auth/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    })
-      .then(res => res.json())
-      .then(json => {
-        localStorage.setItem('token', json.token);
-        this.setState({
-          logged_in: true,
-          displayed_form: '',
-          username: json.user.username
-        });
-      });
-  };
+  // handle_login = (e) => {
+  //   e.preventDefault();
+  //   fetch('http://localhost:8000/token-auth/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(this.state)
+  //   })
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       localStorage.setItem('token', json.token);
+  //       this.setState({
+  //         logged_in: true,
+  //         displayed_form: '',
+  //         username: json.user.username
+  //       });
+  //     });
+  // };
 
   render () {
     return (
       <div className='SignUp'>
-        {this.state.logged_in ? "Yes" : "No"}
-        <form onSubmit={this.handle_login}>
+        {this.props.logged_in}
+        <form onSubmit={e => this.props.handle_login(e, this.state)}>
           <h2>Sign In</h2>
           <div className="song-form-text">
             <TextField name="username" fullWidth value={this.defaultIfEmpty(this.state.username)} onChange={this.onChange} required id="username" label="Username" />
@@ -80,4 +66,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);
