@@ -14,14 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from sounds_backend import views
 from django.conf.urls import url
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('token-auth/', obtain_jwt_token),
     re_path(r'^api/songs/$', views.songs_list),
     re_path(r'^api/songs/([0-9]*)$', views.songs_detail),
     # re_path(r'^api/songs/.*$', views.songs_detail),
-
+    path('core/', include('sounds_backend.urls')),
 ]

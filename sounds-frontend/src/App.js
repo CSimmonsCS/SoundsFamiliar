@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import AllSongs from './components/AllSongs';
 import Search from './components/Search';
 import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 import {withRouter} from 'react-router';
 import {
@@ -19,21 +20,31 @@ import {
   Link
 } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Header/>
-        <Switch>
-          <Route exact path="/" component={withRouter(Home)} />
-          <Route path="/all" component={withRouter(AllSongs)} />
-          <Route path="/search" component={withRouter(Search)} />
-          <Route path="/signup" component={withRouter(SignUp)} />
-        </Switch>
-      </Router>
-      <Footer />
-    </div>
-  );
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      logged_in: localStorage.getItem('token') ? true : false,
+    }
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <Router>
+          <Header/>
+          <Switch>
+            <Route exact path="/" component={withRouter(Home)} />
+            <Route path="/all" component={withRouter(AllSongs)} />
+            <Route path="/search" component={withRouter(Search)} />
+            <Route path="/signin" component={withRouter(SignIn)} />
+            <Route path="/signup" component={withRouter(SignUp)} />
+          </Switch>
+        </Router>
+        <Footer />
+      </div>
+    );
+  }
 }
 
 const Home = () => (

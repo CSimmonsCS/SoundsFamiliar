@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import axios from "axios";
 
 import { USER_URL } from "../constants";
@@ -8,12 +7,11 @@ import { USER_URL } from "../constants";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-class SignUp extends React.Component {
+class SignIn extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       username: "",
-      email: "",
       password: "",
       logged_in: localStorage.getItem('token') ? true : false,
     };
@@ -41,18 +39,9 @@ class SignUp extends React.Component {
     return value === "" ? "" : value;
   };
 
-  // createUser = e => {
-  //   e.preventDefault();
-  //   console.log(this.state.username + ' has been added');
-  //   axios.post(USER_URL, this.state).then(() => {
-  //     // this.resetState();
-  //   })
-  // };
-
-  handle_signup = (e) => {
+  handle_login = (e) => {
     e.preventDefault();
-    // axios.post('http://localhost:8000/core/users/', this.state, {
-    fetch('http://localhost:8000/core/users/', {
+    fetch('http://localhost:8000/token-auth/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -64,10 +53,9 @@ class SignUp extends React.Component {
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
-          // displayed_form: '',
-          username: json.username
+          displayed_form: '',
+          username: json.user.username
         });
-        console.log(this.state.logged_in);
       });
   };
 
@@ -75,19 +63,16 @@ class SignUp extends React.Component {
     return (
       <div className='SignUp'>
         {this.state.logged_in ? "Yes" : "No"}
-        <form onSubmit={this.handle_signup}>
-          <h2>Sign Up</h2>
+        <form onSubmit={this.handle_login}>
+          <h2>Sign In</h2>
           <div className="song-form-text">
-            <TextField name="email" fullWidth value={this.state.email || ''} onChange={this.onChange} required id="email" label="Email" />
+            <TextField name="username" fullWidth value={this.defaultIfEmpty(this.state.username)} onChange={this.onChange} required id="username" label="Username" />
           </div>
           <div className="song-form-text">
-            <TextField name="username" fullWidth value={this.state.username || ''} onChange={this.onChange} required id="username" label="Username" />
-          </div>
-          <div className="song-form-text">
-            <TextField name="password" type="password" fullWidth value={this.state.password || ''} onChange={this.onChange} required id="password" label="Password" />
+            <TextField name="password" type="password" fullWidth value={this.defaultIfEmpty(this.state.password)} onChange={this.onChange} required id="password" label="Password" />
           </div>
           <div className="sign-up-button">
-            <Button type="submit" variant="contained">Sign Up</Button>
+            <Button type="submit" variant="contained">Sign In</Button>
           </div>
         </form>
       </div>
@@ -95,12 +80,4 @@ class SignUp extends React.Component {
   }
 }
 
-
-
-
-// <div className="song-form-text">
-//   <TextField name="confirm_password" type="password" fullWidth value={this.defaultIfEmpty(this.state.confirm_password)} onChange={this.onChange} required id="confirm_password" label="Confirm Password" />
-// </div>
-
-
-export default SignUp;
+export default SignIn;
