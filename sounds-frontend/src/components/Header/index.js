@@ -15,20 +15,6 @@ class Header extends React.Component {
     };
   }
 
-  componentDidMount() {
-    if (this.props.logged_in) {
-      fetch('http://localhost:8000/core/current_user/', {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({ username: json.username });
-        });
-    }
-  }
-
   render () {
 
     return (
@@ -43,7 +29,7 @@ class Header extends React.Component {
                 <li><Link to="/search">Search</Link></li>
 
                 {this.props.logged_in  ?
-                  <li><Link to="" onClick={this.props.handle_logout}>{this.state.username} Log Out</Link></li>
+                  <li><Link to="" onClick={this.props.handle_logout}>{this.props.username} Log Out</Link></li>
                   :
                   <li><Link to="/signin">Sign In</Link></li>
                 }

@@ -13,6 +13,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 
 import {withRouter} from 'react-router';
+import { useHistory } from "react-router-dom";
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,7 +26,17 @@ class App extends React.Component{
     super(props);
     this.state = {
       logged_in: localStorage.getItem('token') ? true : false,
+      username: "",
     }
+  }
+
+  handleErrors(response) {
+    if (!response.ok) {
+        alert('Wrong Credentials. Try Again');
+        // throw Error(response.statusText);
+        return Promise.reject('Wrong credentials.')
+    }
+    return response;
   }
 
   componentDidMount() {
@@ -42,7 +53,7 @@ class App extends React.Component{
     }
   }
 
-  handle_signup = (e) => {
+  handle_signup = (e, data) => {
     e.preventDefault();
     // axios.post('http://localhost:8000/core/users/', this.state, {
     fetch('http://localhost:8000/core/users/', {
@@ -50,8 +61,9 @@ class App extends React.Component{
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify(data)
     })
+      .then(this.handleErrors)
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
@@ -73,15 +85,17 @@ class App extends React.Component{
       },
       body: JSON.stringify(data)
     })
+      .then(this.handleErrors)
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
-          displayed_form: '',
+          // displayed_form: '',
           username: json.user.username
         });
-      });
+      })
+
   };
 
   handle_logout = () => {
@@ -93,7 +107,7 @@ class App extends React.Component{
     return (
       <div className="App">
         <Router>
-          <Header logged_in={this.state.logged_in} handle_logout={this.handle_logout}/>
+          <Header username={this.state.username} logged_in={this.state.logged_in} handle_logout={this.handle_logout}/>
           <Switch>
             <Route exact path="/" component={withRouter(Home)} />
             <Route path="/all" component={withRouter(AllSongs)} />
@@ -104,7 +118,12 @@ class App extends React.Component{
                 (<SignIn {...props} logged_in={this.logged_in} handle_login={this.handle_login}/>
               )}
             />
-            <Route path="/signup" component={withRouter(SignUp)} />
+            <Route
+              path="/signup"
+              render={(props) =>
+                (<SignUp {...props} logged_in={this.logged_in} handle_signup={this.handle_signup}/>
+              )}
+            />
           </Switch>
         </Router>
         <Footer />

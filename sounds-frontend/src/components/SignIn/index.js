@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from "axios";
 import {withRouter} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
 import { USER_URL } from "../constants";
 
@@ -24,6 +25,13 @@ class SignIn extends React.Component {
   defaultIfEmpty = value => {
     return value === "" ? "" : value;
   };
+
+  onSubmit = (e) => {
+    this.props.handle_login(e, this.state)
+    if(this.props.logged_in){
+      this.props.history.push('/');
+    }
+  }
 
   // handle_login = (e) => {
   //   e.preventDefault();
@@ -48,8 +56,7 @@ class SignIn extends React.Component {
   render () {
     return (
       <div className='SignUp'>
-        {this.props.logged_in}
-        <form onSubmit={e => this.props.handle_login(e, this.state)}>
+        <form onSubmit={e => this.onSubmit(e)}>
           <h2>Sign In</h2>
           <div className="song-form-text">
             <TextField name="username" fullWidth value={this.defaultIfEmpty(this.state.username)} onChange={this.onChange} required id="username" label="Username" />

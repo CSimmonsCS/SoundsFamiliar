@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {withRouter} from 'react-router';
 
 import axios from "axios";
 
@@ -15,7 +16,6 @@ class SignUp extends React.Component {
       username: "",
       email: "",
       password: "",
-      logged_in: localStorage.getItem('token') ? true : false,
     };
   }
 
@@ -41,6 +41,13 @@ class SignUp extends React.Component {
     return value === "" ? "" : value;
   };
 
+  onSubmit = (e) => {
+    this.props.handle_signup(e, this.state);
+    if(this.props.logged_in){
+      this.props.history.push('/');
+    }
+  }
+
   // createUser = e => {
   //   e.preventDefault();
   //   console.log(this.state.username + ' has been added');
@@ -49,33 +56,32 @@ class SignUp extends React.Component {
   //   })
   // };
 
-  handle_signup = (e) => {
-    e.preventDefault();
-    // axios.post('http://localhost:8000/core/users/', this.state, {
-    fetch('http://localhost:8000/core/users/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    })
-      .then(res => res.json())
-      .then(json => {
-        localStorage.setItem('token', json.token);
-        this.setState({
-          logged_in: true,
-          // displayed_form: '',
-          username: json.username
-        });
-        console.log(this.state.logged_in);
-      });
-  };
+  // handle_signup = (e) => {
+  //   e.preventDefault();
+  //   // axios.post('http://localhost:8000/core/users/', this.state, {
+  //   fetch('http://localhost:8000/core/users/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(this.state)
+  //   })
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       localStorage.setItem('token', json.token);
+  //       this.setState({
+  //         logged_in: true,
+  //         // displayed_form: '',
+  //         username: json.username
+  //       });
+  //       console.log(this.state.logged_in);
+  //     });
+  // };
 
   render () {
     return (
       <div className='SignUp'>
-        {this.state.logged_in ? "Yes" : "No"}
-        <form onSubmit={this.handle_signup}>
+        <form onSubmit={e => this.onSubmit(e)}>
           <h2>Sign Up</h2>
           <div className="song-form-text">
             <TextField name="email" fullWidth value={this.state.email || ''} onChange={this.onChange} required id="email" label="Email" />
@@ -103,4 +109,4 @@ class SignUp extends React.Component {
 // </div>
 
 
-export default SignUp;
+export default withRouter(SignUp);

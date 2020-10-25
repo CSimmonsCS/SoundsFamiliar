@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
+from rest_framework_jwt.utils import jwt_payload_handler
 from rest_framework.validators import UniqueValidator
 
 from .models import Song
