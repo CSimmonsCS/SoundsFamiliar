@@ -16,6 +16,7 @@ class SignUp extends React.Component {
       username: "",
       email: "",
       password: "",
+      confirm_password: "",
     };
   }
 
@@ -42,9 +43,15 @@ class SignUp extends React.Component {
   };
 
   onSubmit = (e) => {
-    this.props.handle_signup(e, this.state);
-    if(this.props.logged_in){
-      this.props.history.push('/');
+    e.preventDefault();
+    if(this.state.password === this.state.confirm_password){
+      this.props.handle_signup(e, this.state);
+      if(this.props.logged_in){
+        this.props.history.push('/');
+      }
+    }
+    else{
+      alert('Passwords do not match');
     }
   }
 
@@ -91,6 +98,9 @@ class SignUp extends React.Component {
           </div>
           <div className="song-form-text">
             <TextField name="password" type="password" fullWidth value={this.state.password || ''} onChange={this.onChange} required id="password" label="Password" />
+          </div>
+          <div className="song-form-text">
+            <TextField name="confirm_password" type="password" fullWidth value={this.state.confirm_password || ''} onChange={this.onChange} required id="confirm_password" label="Confirm Password" />
           </div>
           <div className="sign-up-button">
             <Button type="submit" variant="contained">Sign Up</Button>
