@@ -27,7 +27,10 @@ class Videos extends React.Component {
     //gets random number based on songs array length,
     //sets state.randomSong to state.songs[randomNum],
     //initializes the start times for the YouTube iFrame API
-    axios.get(API_URL)
+    axios.get(API_URL,
+      {headers: {
+        Authorization: `JWT ${localStorage.getItem('token')}`
+      }})
       // .then(res => this.setState({ songs: res.data }, () => console.log(this.state.songs)));
       .then(
         res => this.setState({ songs: this.state.songs.concat(res.data) },

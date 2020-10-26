@@ -18,6 +18,12 @@ class SignIn extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props.logged_in){
+      this.props.history.push('/');
+    }
+  }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -27,10 +33,8 @@ class SignIn extends React.Component {
   };
 
   onSubmit = (e) => {
-    this.props.handle_login(e, this.state)
-    if(this.props.logged_in){
-      this.props.history.push('/');
-    }
+    this.props.handle_login(e, this.state);
+
   }
 
   // handle_login = (e) => {

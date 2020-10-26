@@ -72,7 +72,7 @@ class App extends React.Component{
           // displayed_form: '',
           username: json.username
         });
-        console.log(this.state.logged_in);
+        // console.log(this.state.logged_in);
       });
   };
 
@@ -115,13 +115,13 @@ class App extends React.Component{
             <Route
               path="/signin"
               render={(props) =>
-                (<SignIn {...props} logged_in={this.logged_in} handle_login={this.handle_login}/>
+                (<SignIn {...props} logged_in={this.state.logged_in} handle_login={this.handle_login}/>
               )}
             />
             <Route
               path="/signup"
               render={(props) =>
-                (<SignUp {...props} logged_in={this.logged_in} handle_signup={this.handle_signup}/>
+                (<SignUp {...props} logged_in={this.state.logged_in} handle_signup={this.handle_signup}/>
               )}
             />
           </Switch>

@@ -20,17 +20,23 @@ class SignUp extends React.Component {
     };
   }
 
-  componentDidMount() {
-    if (this.state.logged_in) {
-      fetch('http://localhost:8000/core/current_user/', {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({ username: json.username });
-        });
+  // componentDidMount() {
+  //   if (this.state.logged_in) {
+  //     fetch('http://localhost:8000/core/current_user/', {
+  //       headers: {
+  //         Authorization: `JWT ${localStorage.getItem('token')}`
+  //       }
+  //     })
+  //       .then(res => res.json())
+  //       .then(json => {
+  //         this.setState({ username: json.username });
+  //       });
+  //   }
+  // }
+
+  componentDidUpdate(prevProps){
+    if(this.props.logged_in){
+      this.props.history.push('/');
     }
   }
 
@@ -46,9 +52,6 @@ class SignUp extends React.Component {
     e.preventDefault();
     if(this.state.password === this.state.confirm_password){
       this.props.handle_signup(e, this.state);
-      if(this.props.logged_in){
-        this.props.history.push('/');
-      }
     }
     else{
       alert('Passwords do not match');

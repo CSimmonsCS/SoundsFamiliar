@@ -10,6 +10,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import authentication_classes, permission_classes
 
 # USERS LIST
 
@@ -47,6 +49,8 @@ class UserList(APIView):
 # SONGS LIST
 
 @api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
 def songs_list(request):
     if request.method == 'GET':
         data = Song.objects.all()
