@@ -95,6 +95,7 @@ class App extends React.Component{
           username: json.user.username
         });
       })
+      .catch((err) => console.log(err));
 
   };
 
