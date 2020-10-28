@@ -142,6 +142,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = (
     'https://localhost:3000',
+    'soundsfamiliar-deploy.herokuapp.com',
 )
 
 JWT_AUTH = {
