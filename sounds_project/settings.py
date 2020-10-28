@@ -28,7 +28,7 @@ SECRET_KEY = '*!1pe(y)sei(fqzg3gcmz$w!%&)-c0o7(gxiufpc17+x-peehn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['soundsfamiliar-deploy.herokuapp.com',]
 
 
 # Application definition
@@ -142,7 +142,6 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = (
     'https://localhost:3000',
-    'soundsfamiliar-deploy.herokuapp.com',
 )
 
 JWT_AUTH = {
