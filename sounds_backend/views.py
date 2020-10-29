@@ -13,6 +13,9 @@ from .serializers import UserSerializer, UserSerializerWithToken
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import authentication_classes, permission_classes
 
+def home(request):
+    return Response(status=status.HTTP_200_OK)
+
 # USERS LIST
 
 @api_view(['GET'])
