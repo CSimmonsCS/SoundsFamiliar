@@ -3,4 +3,4 @@ gunicorn
 django-heroku
 djangorestframework
 django-cors-headers
-rest_framework_jwt
+djangorestframework-jwt
