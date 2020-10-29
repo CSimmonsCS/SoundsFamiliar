@@ -20,7 +20,7 @@ from django.conf.urls import url
 from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
-    path('/', views.home)
+    path('/', views.home),
     path('admin/', admin.site.urls),
     path('token-auth/', obtain_jwt_token),
     re_path(r'^api/songs/$', views.songs_list),
