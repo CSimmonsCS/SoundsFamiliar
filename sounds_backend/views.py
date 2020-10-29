@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import authentication_classes, permission_classes
+from django.http import HttpResponse
 
 def home(request):
     return HttpResponse('Hello, World!')
